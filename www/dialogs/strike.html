@@ -1,0 +1,30 @@
+<!--STRIKE DIALOG PAGE-->
+<div data-role="page" id="strike_dialog_page" data-dialog="true">
+    <div data-role="header">
+        <h1>STRIKE</h1>
+    </div>
+    <div role="main" class="ui-content">
+        <!--STRIKE TARGET, STRIKE DICE, BONUS DICE-->
+        <div class="ui-field-contain">
+            <label for="strike_target" class="select">Strike Target</label>
+            <select name="strike_target" id="strike_target" class="form-elements">
+            </select>
+        </div>
+        <div class="ui-field-contain">
+            <label for="strike_dice_used" class="select">Strike Dice</label>
+            <select name="strike_dice_used" id="strike_dice_used"  class="form-elements">
+            </select>
+        </div>
+        <div class="ui-field-contain">
+            <label for="strike_bonus_dice_used">Bonus Dice</label>
+            <input type="text" placeholder="No bonus dice available" id="strike_bonus_dice_used" name="strike_bonus_dice_used" value="" readonly="readonly" class="form-elements"/>
+        </div>
+        <div class="ui-bar ui-bar-a total-bar">
+            Total Dices <span id="total_dice_used"></span>
+        </div>
+        <div class="ui-field-contain">
+            <a href="../index.html#strike_result_page" id="calculate_strike" class="ui-btn">ROLL</a>
+        </div>
+    </div>
+</div>
+<!--/STRIKE DIALOG PAGE-->

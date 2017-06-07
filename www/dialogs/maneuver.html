@@ -1,0 +1,38 @@
+<!--MANEUVER DIALOG PAGE-->
+<div data-role="page" id="maneuver_dialog_page" data-dialog="true">
+    <div data-role="header">
+        <h1>MANEUVER</h1>
+    </div>
+    <div role="main" class="ui-content">
+    <!--<div class="ui-grid-a">
+    <div class="ui-block-a">-->
+        <!--SKILL USED, ACTION DICE, BONUS DICE-->
+        <div class="ui-field-contain">
+            <label for="skill_used" class="select">Skill to Use</label>
+            <select name="skill_used" id="skill_used" class="form-elements">
+                <option value=""></option>
+                <option value=""></option>
+                <option value=""></option>
+            </select>
+        </div>
+        <div class="ui-field-contain">
+            <label for="action_dice_used" class="select">Action Dice</label>
+            <select name="action_dice_used" id="action_dice_used"  class="form-elements">
+                <!--<option value=""></option>
+                <option value=""></option>
+                <option value=""></option>-->
+            </select>
+        </div>
+        <div class="ui-field-contain">
+            <label for="maneuver_bonus_dice_used">Bonus Dice</label>
+            <input type="text" placeholder="No bonus dice available" id="maneuver_bonus_dice_used" name="maneuver_bonus_dice_used" value="" readonly="readonly" class="form-elements"/>
+        </div>
+        <div class="ui-bar ui-bar-a total-bar">
+            Total Dices <span id="total_dice_used"></span>
+        </div>
+        <div class="ui-field-contain">
+            <a href="../index.html#maneuver_result_page" id="calculate_maneuver" class="ui-btn">ROLL</a>
+        </div>
+    </div>
+</div>
+<!--/MANEUVER DIALOG PAGE-->

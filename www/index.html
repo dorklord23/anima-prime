@@ -1,0 +1,256 @@
+<!doctype html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="Content-Security-Policy" content="default-src 'self' data: gap: https://ssl.gstatic.com 'unsafe-eval'; style-src 'self' 'unsafe-inline'; media-src *" />
+    <meta name="format-detection" content="telephone=no" />
+    <meta name="msapplication-tap-highlight" content="no" />
+    <meta name="viewport" content="user-scalable=no, initial-scale=1, max-scale=1, minimum-scale=1, width=device-width" />
+    <link rel="stylesheet" href="jquerymobile/jquery.mobile-1.4.5.min.css" />
+    <script src="jquerymobile/jquery-2.1.4.min.js"></script>
+    <script src="jquerymobile/jquery.mobile-1.4.5.min.js"></script>
+    <!--<script src="jquerymobile/jquery.mobile.subpage.js"></script>-->
+    <!--<script src="lokijs/src/lokijs.js"></script>-->
+    <script src="js/socket.io.js"></script>
+    <script src="js/animaprimeclient.js"></script>
+    <style type="text/css">
+        body {
+            letter-spacing: 0.4em;
+            margin: 0.2em 0.2em 0.2em 0.2em
+        }
+
+        @font-face {
+            font-family: Calculator;
+            src : url(fonts/digital-7.ttf);
+        }
+
+        div.dice-pool {
+            font-family: Calculator, monospace;
+            font-size: xx-large;
+            letter-spacing: normal;
+        }
+
+        #game_log {
+            font-family: monospace;
+            font-size: small;
+            line-height: 1.2em
+        }
+
+        li {
+            line-height: 2em
+        }
+
+        #gamepad {
+            font-size: xx-small
+        }
+
+        .total-bar {
+            text-align: center;
+            font-size: larger
+        }
+
+        ul {
+            letter-spacing: 0.2em
+        }
+    </style>
+    <title>Anima Prime RPG</title>
+</head>
+<body>
+<!--CONFLICT PAGE-->
+<div data-role="page" id="conflict_page">
+    <!--PANEL 1-->
+    <div data-role="panel" data-display="top" data-theme="b" id="panel1">
+        <div>
+            <img src="pics/avatar.png" alt="You should see your character's face here" />
+        </div>
+        <div>
+            <ul data-role="listview">
+                <li><a href="#">CONFLICT</a></li><!--data-rel="dialog" data-transition="pop"-->
+                <li><a href="#enemy_page">ENEMY</a></li>
+                <li><a href="pages/party.html">PARTY</a></li>
+                <li><a href="pages/soulbound_weapon.html">SOULBOUND<br />WEAPON</a></li>
+                <li><a href="pages/eidolon.html">EIDOLON</a></li>
+            </ul>
+        </div>
+    </div>
+    <!--/PANEL 1-->
+
+    <!--PANEL 2-->
+    <div data-role="panel" data-display="top" data-theme="b" data-position="right" id="panel2">
+        <div>
+            <p>
+                I have no idea what to display here yet
+            </p>
+        </div>
+    </div>
+    <!--/PANEL 2-->
+
+    <div data-role="header">
+        <a href="#panel1" class="ui-btn ui-btn-left ui-icon-arrow-l ui-btn-icon-notext" id="left_button"></a>
+        <h1>CONFLICT</h1>
+        <a href="#panel2" class="ui-btn ui-btn-right ui-icon-arrow-r ui-btn-icon-notext" id="right_button"></a>
+    </div>
+
+    <div role="main" class="ui-content">
+        <!--DICE POOLS-->
+        <div class="ui-grid-d">
+            <div class="ui-block-a">
+                <div class="ui-bar ui-bar-a ui-overlay-shadow">
+                    <div>WOUNDS</div>
+                    <div class="dice-pool">
+                        <span id="current_wound"></span>
+                        /
+                        <span id="max_wound"></span>
+                    </div>
+                </div>
+            </div>
+            <div class="ui-block-b">
+                <div class="ui-bar ui-bar-a ui-overlay-shadow">
+                    <div>TOKENS</div><!-- style="font-size: xx-small"-->
+                    <div class="dice-pool">
+                        <span id="current_token"></span>
+                        <!--/
+                        <span id="max_token"></span>-->
+                    </div>
+                </div>
+            </div>
+            <div class="ui-block-c">
+                <div class="ui-bar ui-bar-b ui-overlay-shadow">
+                    <div>ACTION</div>
+                    <div class="dice-pool">
+                        <span id="current_action"></span>
+                        /
+                        <span id="max_action"></span>
+                    </div>
+                </div>
+            </div>
+            <div class="ui-block-d">
+                <div class="ui-bar ui-bar-b ui-overlay-shadow">
+                    <div>STRIKE</div>
+                    <div class="dice-pool">
+                        <span id="current_strike"></span>
+                        <!--/
+                        <span id="max_strike"></span>-->
+                    </div>
+                </div>
+            </div>
+            <div class="ui-block-e">
+                <div class="ui-bar ui-bar-b ui-overlay-shadow">
+                    <div>CHARGE</div>
+                    <div class="dice-pool">
+                        <div class="dice-pool">
+                        <span id="current_charge"></span>
+                        /
+                        <span id="max_charge"></span>
+                    </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!--/DICE POOLS-->
+
+        <!--GAMEPAD-->
+        <div class="ui-grid-b" id="gamepad">
+            <!--LEFT PAD-->
+            <div class="ui-block-a">
+                <div class="ui-bar ui-bar-a ui-overlay-shadow">
+                    <div data-role="controlgroup">
+                        <a href="dialogs/maneuver.html" class="ui-btn" id="maneuver_button" data-transition="pop">MANEUVER</a>
+                        <a href="dialogs/strike.html" class="ui-btn" id="strike_button" data-transition="pop">STRIKE</a>
+                        <a href="dialogs/achievement.html" class="ui-btn" id="achievement_button" data-transition="pop">ACHIEVEMENT</a>
+                    </div>
+                </div>
+            </div>
+            <!--/LEFT PAD-->
+
+            <div class="ui-block-b" id="game_log_container">
+                <div class="ui-bar ui-bar-a ui-overlay-shadow">
+                    <textarea rows="200" readonly="readonly" placeholder="This is where the game log will be displayed" id="game_log"></textarea>
+                </div>
+            </div>
+
+            <!--RIGHT PAD-->
+            <div class="ui-block-c">
+                <div class="ui-bar ui-bar-a ui-overlay-shadow">
+                    <div data-role="controlgroup">
+                        <a href="dialogs/charge_powers.html" class="ui-btn" id="charge_powers_button" data-transition="pop">CHARGE<br />POWERS</a>
+                        <a href="#" class="ui-btn" id="catching_your_breath_button" data-transition="pop">CATCHING<br />YOUR BREATH</a>
+                    </div>
+                </div>
+            </div>
+            <!--/RIGHT PAD-->
+        </div>
+        <!--/GAMEPAD-->
+    </div>
+
+    <!--<div data-role="footer">
+        <div style="text-align:center; font-size: xx-small">
+            Copyright 2015 Tri R.A. Wibowo<br />Proudly Powered by Cordova and jQuery Mobile
+        </div>
+    </div>-->
+</div>
+<!--/CONFLICT PAGE-->
+
+<!--ENEMY PAGE-->
+<div data-role="page" id="enemy_page"><a href="#conflict_page">CONFLICT</a></div>
+<!--/ENEMY PAGE-->
+
+<!--MANEUVER RESULT PAGE-->
+<div data-role="page" id="maneuver_result_page" data-dialog="true">
+    <div data-role="header">
+        <h1>MANEUVER<br />RESULT</h1>
+    </div>
+    <div role="main" class="ui-content">
+        <div class="ui-grid-a">
+            <!--<div class="ui-block-a">Dices <span id="rollResult"></span></div>
+            <div>Strike Dice(s)<span id="strikeDiceEarned"></span></div>
+            <div>Charge Dice(s)<span id="chargeDiceEarned"></span></div>
+            <div>Awesome Token(s)<span id="awesomeTokenEarned"></span></div>-->
+            <div class="ui-block-a">Dices</div><div class="ui-block-b" id="maneuverRollResult"></div>
+            <div class="ui-block-a">Strike Dice(s)</div><div class="ui-block-b" id="strikeDiceEarned"></div>
+            <div class="ui-block-a">Charge Dice(s)</div><div class="ui-block-b" id="chargeDiceEarned"></div>
+            <div class="ui-block-a">Awesome Token(s)</div><div class="ui-block-b" id="awesomeTokenEarned"></div>
+        </div>
+        <div class="ui-grid-solo">
+            <div class="ui-block-a"><a href="#conflict_page" class="ui-btn">OK</a></div>
+        </div>
+    </div>
+</div>
+<!--/MANEUVER RESULT PAGE-->
+
+<!--STRIKE RESULT PAGE-->
+<div data-role="page" id="strike_result_page" data-dialog="true">
+    <div data-role="header">
+        <h1>STRIKE<br />RESULT</h1>
+    </div>
+    <div role="main" class="ui-content">
+        <div class="ui-grid-a">
+            <div class="ui-block-a">Dices</div><div class="ui-block-b" id="strikeRollResult"></div>
+            <div class="ui-block-a">Successful Strike</div><div class="ui-block-b" id="successfulStrike"></div>
+        </div>
+        <div class="ui-grid-solo">
+            <div class="ui-block-a"><a href="#conflict_page" class="ui-btn">OK</a></div>
+        </div>
+    </div>
+</div>
+<!--/STRIKE RESULT PAGE-->
+
+<!--ACHIEVEMENT RESULT PAGE-->
+<div data-role="page" id="achievement_result_page" data-dialog="true">
+    <div data-role="header">
+        <h1>ACHIEVEMENT<br />RESULT</h1>
+    </div>
+    <div role="main" class="ui-content">
+        <div class="ui-grid-a">
+            <div class="ui-block-a">Dices</div><div class="ui-block-b" id="achievementRollResult"></div>
+            <div class="ui-block-a">Successful Achievement</div><div class="ui-block-b" id="successfulAchievement"></div>
+        </div>
+        <div class="ui-grid-solo">
+            <div class="ui-block-a"><a href="#conflict_page" class="ui-btn">OK</a></div>
+        </div>
+    </div>
+</div>
+<!--/ACHIEVEMENT RESULT PAGE-->
+
+</body>
+</html>

@@ -1,0 +1,33 @@
+<!--ACHIEVEMENT DIALOG PAGE-->
+<div data-role="page" id="achievement_dialog_page" data-dialog="true">
+    <div data-role="header">
+        <h1>ACHIEVEMENT</h1>
+    </div>
+    <div role="main" class="ui-content">
+        <!--SKILL USED, STRIKE DICE, BONUS DICE-->
+        <div class="ui-field-contain">
+            <label for="skill_used" class="select">Skill to Use</label>
+            <select name="skill_used" id="skill_used" class="form-elements">
+                <option value=""></option>
+                <option value=""></option>
+                <option value=""></option>
+            </select>
+        </div>
+        <div class="ui-field-contain">
+            <label for="strike_dice_used_for_achievement" class="select">Strike Dice</label>
+            <select name="strike_dice_used" id="strike_dice_used_for_achievement"  class="form-elements">
+            </select>
+        </div>
+        <div class="ui-field-contain">
+            <label for="achievement_bonus_dice_used">Bonus Dice</label>
+            <input type="text" placeholder="No bonus dice available" id="achievement_bonus_dice_used" name="achievement_bonus_dice_used" value="" readonly="readonly" class="form-elements"/>
+        </div>
+        <div class="ui-bar ui-bar-a total-bar">
+            Total Dices <span id="total_dice_used"></span>
+        </div>
+        <div class="ui-field-contain">
+            <a href="../index.html#achievement_result_page" id="calculate_achievement" class="ui-btn">ROLL</a>
+        </div>
+    </div>
+</div>
+<!--/ACHIEVEMENT DIALOG PAGE-->
